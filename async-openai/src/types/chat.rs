@@ -5,6 +5,7 @@ use futures::Stream;
 use serde::{Deserialize, Serialize};
 
 use crate::error::OpenAIError;
+use crate::types::tensorzero::TextContent;
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(untagged)]
@@ -243,7 +244,7 @@ pub struct ChatCompletionRequestMessageContentPartAudio {
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum ChatCompletionRequestUserMessageContentPart {
-    Text(ChatCompletionRequestMessageContentPartText),
+    Text(TextContent),
     ImageUrl(ChatCompletionRequestMessageContentPartImage),
     InputAudio(ChatCompletionRequestMessageContentPartAudio),
 }
@@ -883,6 +884,10 @@ pub struct CreateChatCompletionRequest {
     #[deprecated]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub functions: Option<Vec<ChatCompletionFunctions>>,
+
+    /// Additional fields for future extensions
+    #[serde(flatten)]
+    unknown_fields: HashMap<String, serde_json::Value>,
 }
 
 /// Options for streaming response. Only set this when you set `stream: true`.

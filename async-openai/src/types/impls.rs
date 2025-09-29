@@ -29,7 +29,7 @@ use super::{
     CreateSpeechResponse, CreateTranscriptionRequest, CreateTranslationRequest, DallE2ImageSize,
     EmbeddingInput, FileInput, FilePurpose, FunctionName, Image, ImageInput, ImageModel,
     ImageResponseFormat, ImageSize, ImageUrl, ImagesResponse, ModerationInput, Prompt, Role, Stop,
-    TimestampGranularity,
+    TextContent, TimestampGranularity,
 };
 
 /// for `impl_from!(T, Enum)`, implements
@@ -735,7 +735,7 @@ impl From<ChatCompletionRequestMessageContentPartText>
     for ChatCompletionRequestUserMessageContentPart
 {
     fn from(value: ChatCompletionRequestMessageContentPartText) -> Self {
-        ChatCompletionRequestUserMessageContentPart::Text(value)
+        ChatCompletionRequestUserMessageContentPart::Text(TextContent::Text { text: value.text })
     }
 }
 
