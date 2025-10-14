@@ -96,7 +96,7 @@ pub enum ContentType {
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct InputText {
-    text: String,
+    pub text: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default, Builder)]
@@ -137,6 +137,9 @@ pub struct InputFile {
     /// The name of the file to be sent to the model.
     #[serde(skip_serializing_if = "Option::is_none")]
     filename: Option<String>,
+    /// The URL of the file to be sent to the model.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    file_url: Option<String>,
 }
 
 /// Builder for a Responses API request.
@@ -359,6 +362,15 @@ pub struct ReasoningConfig {
     pub summary: Option<ReasoningSummary>,
 }
 
+/// o-series reasoning settings.
+#[derive(Clone, Serialize, Debug, Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum Verbosity {
+    Low,
+    Medium,
+    High,
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum ReasoningSummary {
@@ -372,6 +384,9 @@ pub enum ReasoningSummary {
 pub struct TextConfig {
     /// Defines the format: plain text, JSON object, or JSON schema.
     pub format: TextResponseFormat,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verbosity: Option<Verbosity>,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
