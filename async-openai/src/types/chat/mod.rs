@@ -1,6 +1,7 @@
 mod api;
 mod chat_;
 mod impls;
+mod tensorzero;
 
 pub use api::*;
 pub use chat_::*;

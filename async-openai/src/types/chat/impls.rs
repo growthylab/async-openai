@@ -229,13 +229,13 @@ impl From<ChatCompletionRequestMessageContentPartAudio>
 
 impl From<&str> for ChatCompletionRequestMessageContentPartText {
     fn from(value: &str) -> Self {
-        ChatCompletionRequestMessageContentPartText { text: value.into() }
+        ChatCompletionRequestMessageContentPartText::Text { text: value.into() }
     }
 }
 
 impl From<String> for ChatCompletionRequestMessageContentPartText {
     fn from(value: String) -> Self {
-        ChatCompletionRequestMessageContentPartText { text: value }
+        ChatCompletionRequestMessageContentPartText::Text { text: value }
     }
 }
 

@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
+use serde_json::{Map, Value};
 
 use crate::{
     error::OpenAIError,
@@ -145,14 +146,14 @@ pub struct ChatCompletionRequestSystemMessage {
     pub name: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default, Clone, Builder, PartialEq)]
-#[builder(name = "ChatCompletionRequestMessageContentPartTextArgs")]
-#[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
-#[builder(derive(Debug))]
-#[builder(build_fn(error = "OpenAIError"))]
-pub struct ChatCompletionRequestMessageContentPartText {
-    pub text: String,
+#[derive(Debug, Clone, PartialEq)]
+pub enum ChatCompletionRequestMessageContentPartText {
+    /// A normal openai text content block: `{"type": "text", "text": "Some content"}`. The `type` key comes from the parent `OpenAICompatibleContentBlock`
+    Text { text: String },
+    /// A special TensorZero mode: `{"type": "text", "tensorzero::arguments": {"custom_key": "custom_val"}}`.
+    TensorZeroArguments {
+        tensorzero_arguments: Map<String, Value>,
+    },
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone, Builder, PartialEq)]
