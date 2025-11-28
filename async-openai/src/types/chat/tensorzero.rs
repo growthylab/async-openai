@@ -3,6 +3,13 @@ use crate::types::chat::ChatCompletionRequestMessageContentPartText;
 use serde::{ser::SerializeMap, Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::{Map, Value};
 
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct Template {
+    pub name: String,
+    pub arguments: Map<String, Value>,
+}
+
 impl Serialize for ChatCompletionRequestMessageContentPartText {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where

@@ -8,8 +8,9 @@ use crate::{
     error::OpenAIError,
     types::{
         chat::{
-            CompletionTokensDetails, CustomGrammarFormatParam, FunctionCall, FunctionName,
-            FunctionObject, ImageUrl, PromptTokensDetails, ReasoningEffort, ResponseFormat,
+            tensorzero::Template, CompletionTokensDetails, CustomGrammarFormatParam, FunctionCall,
+            FunctionName, FunctionObject, ImageUrl, PromptTokensDetails, ReasoningEffort,
+            ResponseFormat,
         },
         Metadata,
     },
@@ -227,6 +228,8 @@ pub enum ChatCompletionRequestUserMessageContentPart {
     ImageUrl(ChatCompletionRequestMessageContentPartImage),
     InputAudio(ChatCompletionRequestMessageContentPartAudio),
     File(ChatCompletionRequestMessageContentPartFile),
+    #[serde(rename = "tensorzero::template")]
+    Template(Template),
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
@@ -234,6 +237,8 @@ pub enum ChatCompletionRequestUserMessageContentPart {
 #[serde(rename_all = "snake_case")]
 pub enum ChatCompletionRequestSystemMessageContentPart {
     Text(ChatCompletionRequestMessageContentPartText),
+    #[serde(rename = "tensorzero::template")]
+    Template(Template),
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
