@@ -1001,7 +1001,7 @@ pub struct CreateChatCompletionRequest {
 
     /// Additional fields for future extensions
     #[serde(flatten)]
-    unknown_fields: HashMap<String, serde_json::Value>,
+    pub unknown_fields: HashMap<String, serde_json::Value>,
 }
 
 /// Options for streaming response. Only set this when you set `stream: true`.
