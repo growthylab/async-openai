@@ -5,6 +5,7 @@ mod tensorzero;
 
 pub use api::*;
 pub use chat_::*;
+pub use tensorzero::Template;
 
 // Re-export shared types that are used in chat
 pub use crate::types::shared::CompletionTokensDetails;
