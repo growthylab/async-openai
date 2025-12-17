@@ -254,6 +254,8 @@ pub enum ChatCompletionRequestAssistantMessageContentPart {
 #[serde(rename_all = "snake_case")]
 pub enum ChatCompletionRequestToolMessageContentPart {
     Text(ChatCompletionRequestMessageContentPartText),
+    #[serde(rename = "tensorzero::template")]
+    Template(Template),
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
